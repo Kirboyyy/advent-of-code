@@ -4,16 +4,7 @@ fn main() {
     let inputs = fs::read_to_string("input.txt").expect("Can't read file!");
     let lines: Vec<String> = inputs.lines().map(String::from).collect(); 
     let mut res = 0;
-    for line in lines{
-        let first_digit = get_digit(&line, false); //line.chars().find(|c| c.is_digit(10));
-        let last_digit = get_digit(&line, true); //line.chars().rev().find(|c| c.is_digit(10));
-        let value = first_digit.unwrap().to_string() + &last_digit.unwrap().to_string();
-        res += value.parse::<i32>().unwrap(); 
-    }
-    println!("Result = {res}");    
-}
 
-fn get_digit(input_line: &str, reverse: bool) -> Option<i32> {
     let mut num_map: HashMap<&str, i32> = HashMap::new();
     num_map.insert("one", 1);
     num_map.insert("two", 2);
@@ -24,6 +15,17 @@ fn get_digit(input_line: &str, reverse: bool) -> Option<i32> {
     num_map.insert("seven", 7);
     num_map.insert("eight", 8);
     num_map.insert("nine", 9);
+
+    for line in lines{
+        let first_digit = get_digit(&line,& num_map, false); //line.chars().find(|c| c.is_digit(10));
+        let last_digit = get_digit(&line, &num_map, true); //line.chars().rev().find(|c| c.is_digit(10));
+        let value = first_digit.unwrap().to_string() + &last_digit.unwrap().to_string();
+        res += value.parse::<i32>().unwrap(); 
+    }
+    println!("Result = {res}");    
+}
+
+fn get_digit(input_line: &str, num_map: &HashMap<&str, i32>, reverse: bool) -> Option<i32> {
 
 
     let line : String;
