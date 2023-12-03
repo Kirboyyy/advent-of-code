@@ -78,15 +78,8 @@ fn validate_part_number(part_number: &str, end: usize, line: &str, prev_line: Op
             surrounding_chars.push(n_line.chars().nth(j).unwrap());
         }
     }
-    for ele in &surrounding_chars {
-        print!("{ele}");
-    }
     if surrounding_chars.iter().any(|&c| c != '.' && !c.is_digit(10) ){
-        println!(": Adding to Sum: {part_number}");
         return part_number.parse::<i32>().unwrap();
-    } else {
-        println!(": Not added to Sum! {part_number}");
     }
-
     return 0;
 }
